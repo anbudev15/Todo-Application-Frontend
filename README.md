@@ -55,13 +55,21 @@ src/app/services/todo.service.ts
 📁 Folder Structure
 bash
 Copy code
+
 src/app/
+
  ├── todos/           # Active tasks component
+ 
  ├── completed/       # Completed tasks component
+ 
  ├── services/        # Todo service for API calls
+ 
  ├── models/          # Todo interface
+ 
  ├── app.config.ts    # Routing configuration
+ 
  ├── app.html / .ts   # Root application files
+ 
 🧠 Notes
 Optimized for both desktop and mobile.
 
