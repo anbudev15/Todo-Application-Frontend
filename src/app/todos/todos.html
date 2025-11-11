@@ -1,0 +1,64 @@
+<!-- src/app/todos/todos.html -->
+<div class="todo-wrapper">
+  <!-- Header -->
+  <header class="todo-header">
+    <h1>📝 My To-Do List</h1>
+    <nav class="nav-links">
+      <!-- <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Active Tasks</a>
+      <a routerLink="/completed" routerLinkActive="active">Completed Tasks</a> -->
+    </nav>
+  </header>
+
+  <!-- Form -->
+  <section class="todo-form">
+    <form [formGroup]="form" (ngSubmit)="submit()" class="form-container">
+      <input type="text" formControlName="title" placeholder="Enter task title..." class="input title-input" />
+      <textarea formControlName="description" placeholder="Add details (optional)..." class="input desc-input"></textarea>
+
+      <div class="form-actions">
+        <button type="submit" class="btn primary" [disabled]="form.invalid">
+          {{ editing ? 'Update Task' : 'Add Task' }}
+        </button>
+        <button *ngIf="editing" type="button" class="btn secondary" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Error / Loading -->
+  <p *ngIf="error" class="error-msg">{{ error }}</p>
+  <p *ngIf="loading" class="loading-msg">Loading tasks...</p>
+
+  <!-- Task list -->
+  <section class="todo-list">
+    <div *ngIf="todos.length > 0; else emptyState">
+      <div *ngFor="let t of todos" class="todo-card" [class.completed]="t.completed">
+        <div class="todo-left">
+          <input type="checkbox" [checked]="t.completed" (change)="toggleComplete(t)" />
+          <div>
+            <h3 class="todo-title">{{ t.title }}</h3>
+            <p class="todo-desc" *ngIf="t.description">{{ t.description }}</p>
+            <p class="todo-date">Created: {{ t.createdAt | date: 'medium' }}</p>
+          </div>
+        </div>
+
+        <div class="todo-actions">
+          <!-- Complete button: only show if not completed -->
+          <button *ngIf="!t.completed" class="btn-icon complete" title="Mark as Completed" (click)="markAsCompleted(t)">✅</button>
+
+          <!-- Edit -->
+          <button class="btn-icon edit" title="Edit Task" (click)="edit(t)">✏️</button>
+
+          <!-- Delete -->
+          <button class="btn-icon delete" title="Delete Task" (click)="delete(t)">🗑️</button>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #emptyState>
+      <div class="empty">
+        <img src="https://cdn-icons-png.flaticon.com/512/4072/4072309.png" alt="empty" />
+        <p>No tasks yet. Start adding some!</p>
+      </div>
+    </ng-template>
+  </section>
+</div>

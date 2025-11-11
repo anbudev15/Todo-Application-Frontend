@@ -1,0 +1,7 @@
+<!-- src/app/app.html -->
+<nav class="nav">
+  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Active Tasks</a>
+  <a routerLink="/completed" routerLinkActive="active">Completed Tasks</a>
+</nav>
+
+<router-outlet></router-outlet>

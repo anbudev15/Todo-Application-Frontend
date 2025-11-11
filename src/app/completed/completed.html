@@ -1,0 +1,26 @@
+<div class="completed-wrapper">
+  <header class="completed-header">
+    <a routerLink="/">← Back to Active</a>
+    <h2>Completed Tasks</h2>
+  </header>
+
+  <div *ngIf="loading">Loading...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <ul *ngIf="completed.length > 0" class="completed-list">
+    <li *ngFor="let t of completed" class="completed-item">
+      <div class="left">
+        <div class="title">{{ t.title }}</div>
+        <div class="desc" *ngIf="t.description">{{ t.description }}</div>
+        <div class="date">Completed: {{ t.updatedAt | date:'short' }}</div>
+      </div>
+
+      <div class="actions">
+        <button (click)="restore(t)" class="btn-restore">Restore</button>
+        <button (click)="deletePermanent(t)" class="btn-delete">Delete Permanently</button>
+      </div>
+    </li>
+  </ul>
+
+  <div *ngIf="!loading && completed.length === 0">No completed tasks yet.</div>
+</div>
